@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Random;
 
 /**
  * La valeur à x et y du plateau est égale à :
@@ -25,45 +24,26 @@ public class GameBoard {
 	private int sizeOfX;
 	private int sizeOfY;
 	
-	public GameBoard(int sizeOfX, int sizeOfY){
+	public GameBoard(String lvl, int sizeOfX, int sizeOfY){
 		this.sizeOfX = sizeOfX;
 		this.sizeOfY = sizeOfY;
 		board = new int[sizeOfX][sizeOfY];
-		this.loadBoard();
+		this.loadBoard(lvl);
 	}
 	
-	public void loadBoard(){
-		/*Random r = new Random();
-		int nbRandom = r.nextInt(10);
-		
-		for(int y = 0; y < sizeOfY; y++){
-			for(int x = 0; x < sizeOfX; x++){
-				nbRandom = r.nextInt(10);
-				if(nbRandom < 6)
-					board[x][y] = 0;
-				else if(nbRandom >= 6 && nbRandom < 9)
-					board[x][y] = 1;
-				else
-					board[x][y] = 4;
-			}
-		}
-		board[5][5] = 5;
-		board[5][7] = 2;
-		*/
+	public void loadBoard(String lvl){
 		try {
-			InputStream ips = new FileInputStream("niveau1.txt");
+			InputStream ips = new FileInputStream(lvl);
 			InputStreamReader ipsr = new InputStreamReader(ips);
 			
 			BufferedReader br = new BufferedReader(ipsr);
 			String ligne;
 			
-			for(int y = 0; y < sizeOfY; y++){
-				for(int x = 0; x < sizeOfX; x++){
-					if((ligne=br.readLine()) != null)
-						board[x][y] = Integer.parseInt(ligne);
-				}								
+			while((ligne=br.readLine()) != null){
+				String[] tab = ligne.split(" ");
+				board[Integer.parseInt(tab[1])][Integer.parseInt(tab[0])] = Integer.parseInt(tab[2]);
 			}
-			
+				
 			br.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
