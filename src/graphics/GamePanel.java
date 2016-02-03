@@ -11,26 +11,22 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import game.GameBoard;
-import game.Player;
-import game.Entity;
-import game.Game;
+import game.Coordonnees;
 
 public class GamePanel extends JPanel implements KeyListener {
 	private static final long serialVersionUID = 1L;
 	private JLabel[][] label;
 	private GameBoard gameBoard;
-	private Player player;
-	private Game game;
+	private Coordonnees coordPlayer;
 
-	public GamePanel(Game game, int sizeOfX, int sizeOfY){
+	public GamePanel(GameBoard gameBoard, int sizeOfX, int sizeOfY){
 		this.setPreferredSize(new Dimension(sizeOfX, sizeOfY));
 		this.addKeyListener(this);
 		this.setFocusable(true);
 		this.requestFocus();
-		this.game = game;
-		this.gameBoard = game.getGameBoard();
+		this.gameBoard = gameBoard;
 		this.label = new JLabel[gameBoard.getSizeOfX()][gameBoard.getSizeOfY()];
-		this.player = game.getPlayer();
+		this.coordPlayer = new Coordonnees();
 		this.loadPicture();
 		this.initLayout();
 	}
@@ -61,7 +57,7 @@ public class GamePanel extends JPanel implements KeyListener {
 					label[x][y].setIcon(new ImageIcon("objectif.png"));
 				}else if(gameBoard.getValue(x, y) == 5){
 					label[x][y].setIcon(new ImageIcon("marioface.gif"));
-					player.setCoordonnees(x, y);
+					coordPlayer.setCoordonnees(x, y);
 				}else 
 					label[x][y].setIcon(new ImageIcon(""));
 			}
@@ -69,54 +65,54 @@ public class GamePanel extends JPanel implements KeyListener {
 	}
 	
 	public void setMario(int x, int y){
-		if(gameBoard.getValue(player.myGetXX(), player.myGetYY()) == 4
-				&& gameBoard.getValue(player.myGetXX()+x, player.myGetYY()+y) == 4){
+		if(gameBoard.getValue(coordPlayer.myGetXX(), coordPlayer.myGetYY()) == 4
+				&& gameBoard.getValue(coordPlayer.myGetXX()+x, coordPlayer.myGetYY()+y) == 4){
 			
-			label[player.myGetXX()][player.myGetYY()].setIcon(new ImageIcon("objectif.png"));			
-			player.setCoordonnees(player.myGetXX()+x, player.myGetYY()+y);
+			label[coordPlayer.myGetXX()][coordPlayer.myGetYY()].setIcon(new ImageIcon("objectif.png"));			
+			coordPlayer.setCoordonnees(coordPlayer.myGetXX()+x, coordPlayer.myGetYY()+y);
 			
-		}else if (gameBoard.getValue(player.myGetXX(), player.myGetYY()) == 4){
-			label[player.myGetXX()][player.myGetYY()].setIcon(new ImageIcon("objectif.png"));			
-			player.setCoordonnees(player.myGetXX()+x, player.myGetYY()+y);
-			gameBoard.setValue(player.myGetXX(), player.myGetYY(), 5);
-		}else if(gameBoard.getValue(player.myGetXX()+x, player.myGetYY()+y) == 4){	
-			label[player.myGetXX()][player.myGetYY()].setIcon(new ImageIcon(""));
-			gameBoard.setValue(player.myGetXX(), player.myGetYY(), 0);
-			player.setCoordonnees(player.myGetXX()+x, player.myGetYY()+y);
+		}else if (gameBoard.getValue(coordPlayer.myGetXX(), coordPlayer.myGetYY()) == 4){
+			label[coordPlayer.myGetXX()][coordPlayer.myGetYY()].setIcon(new ImageIcon("objectif.png"));			
+			coordPlayer.setCoordonnees(coordPlayer.myGetXX()+x, coordPlayer.myGetYY()+y);
+			gameBoard.setValue(coordPlayer.myGetXX(), coordPlayer.myGetYY(), 5);
+		}else if(gameBoard.getValue(coordPlayer.myGetXX()+x, coordPlayer.myGetYY()+y) == 4){	
+			label[coordPlayer.myGetXX()][coordPlayer.myGetYY()].setIcon(new ImageIcon(""));
+			gameBoard.setValue(coordPlayer.myGetXX(), coordPlayer.myGetYY(), 0);
+			coordPlayer.setCoordonnees(coordPlayer.myGetXX()+x, coordPlayer.myGetYY()+y);
 			
 		}else{
-			label[player.myGetXX()][player.myGetYY()].setIcon(new ImageIcon(""));
-			gameBoard.setValue(player.myGetXX(), player.myGetYY(), 0);
-			player.setCoordonnees(player.myGetXX()+x, player.myGetYY()+y);
-			gameBoard.setValue(player.myGetXX(), player.myGetYY(), 5);
+			label[coordPlayer.myGetXX()][coordPlayer.myGetYY()].setIcon(new ImageIcon(""));
+			gameBoard.setValue(coordPlayer.myGetXX(), coordPlayer.myGetYY(), 0);
+			coordPlayer.setCoordonnees(coordPlayer.myGetXX()+x, coordPlayer.myGetYY()+y);
+			gameBoard.setValue(coordPlayer.myGetXX(), coordPlayer.myGetYY(), 5);
 		}		
 	}
 	
 	public void setCaisse(int x, int y, int xx, int yy){
-		label[player.myGetXX()+x][player.myGetYY()+y].setIcon(new ImageIcon(""));
+		label[coordPlayer.myGetXX()+x][coordPlayer.myGetYY()+y].setIcon(new ImageIcon(""));
 		
-		if(gameBoard.getValue(player.myGetXX()+x, player.myGetYY()+y) == 3){
-				gameBoard.setValue(player.myGetXX()+x, player.myGetYY()+y, 4);
+		if(gameBoard.getValue(coordPlayer.myGetXX()+x, coordPlayer.myGetYY()+y) == 3){
+				gameBoard.setValue(coordPlayer.myGetXX()+x, coordPlayer.myGetYY()+y, 4);
 		}else
-			gameBoard.setValue(player.myGetXX()+x, player.myGetYY()+y, 0);
+			gameBoard.setValue(coordPlayer.myGetXX()+x, coordPlayer.myGetYY()+y, 0);
 		
-		if(gameBoard.getValue(player.myGetXX()+xx, player.myGetYY()+yy) == 4){
-			label[player.myGetXX()+xx][player.myGetYY()+yy].setIcon(new ImageIcon("caisseplace.jpg"));
-			gameBoard.setValue(player.myGetXX()+xx, player.myGetYY()+yy, 3);
+		if(gameBoard.getValue(coordPlayer.myGetXX()+xx, coordPlayer.myGetYY()+yy) == 4){
+			label[coordPlayer.myGetXX()+xx][coordPlayer.myGetYY()+yy].setIcon(new ImageIcon("caisseplace.jpg"));
+			gameBoard.setValue(coordPlayer.myGetXX()+xx, coordPlayer.myGetYY()+yy, 3);
 			
 		}else{
-			label[player.myGetXX()+xx][player.myGetYY()+yy].setIcon(new ImageIcon("caisse.jpg"));
-			gameBoard.setValue(player.myGetXX()+xx, player.myGetYY()+yy, 2);
+			label[coordPlayer.myGetXX()+xx][coordPlayer.myGetYY()+yy].setIcon(new ImageIcon("caisse.jpg"));
+			gameBoard.setValue(coordPlayer.myGetXX()+xx, coordPlayer.myGetYY()+yy, 2);
 		}
 	}
 	
 	public void setMarioPicture(String picture){
-		label[player.myGetXX()][player.myGetYY()].setIcon(new ImageIcon(picture));
+		label[coordPlayer.myGetXX()][coordPlayer.myGetYY()].setIcon(new ImageIcon(picture));
 	}
 	
-	public boolean verifyOutBoard(int x, int y, Entity entity){
+	public boolean verifyOutBoard(int x, int y){
 		try{
-			gameBoard.getValue(entity.myGetXX()+x, entity.myGetYY()+y);
+			gameBoard.getValue(coordPlayer.myGetXX()+x, coordPlayer.myGetYY()+y);
 			return true;
 		}catch (ArrayIndexOutOfBoundsException e) {
 			return false;
@@ -128,26 +124,26 @@ public class GamePanel extends JPanel implements KeyListener {
 		
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_UP:
-				if(verifyOutBoard(0, -1, player) && gameBoard.getValue(player.myGetXX(), player.myGetYY()-1) == 0
-						|| gameBoard.getValue(player.myGetXX(), player.myGetYY()-1) == 4)
+				if(verifyOutBoard(0, -1) && gameBoard.getValue(coordPlayer.myGetXX(), coordPlayer.myGetYY()-1) == 0
+						|| gameBoard.getValue(coordPlayer.myGetXX(), coordPlayer.myGetYY()-1) == 4)
 					setMario(0, -1);
-				else if(verifyOutBoard(0, -1, player) && (gameBoard.getValue(player.myGetXX(), player.myGetYY()-1) == 2
-						|| gameBoard.getValue(player.myGetXX(), player.myGetYY()-1) == 3)
-						&& (gameBoard.getValue(player.myGetXX(), player.myGetYY()-2) == 0
-						|| gameBoard.getValue(player.myGetXX(), player.myGetYY()-2) == 4)){
+				else if(verifyOutBoard(0, -1) && (gameBoard.getValue(coordPlayer.myGetXX(), coordPlayer.myGetYY()-1) == 2
+						|| gameBoard.getValue(coordPlayer.myGetXX(), coordPlayer.myGetYY()-1) == 3)
+						&& (gameBoard.getValue(coordPlayer.myGetXX(), coordPlayer.myGetYY()-2) == 0
+						|| gameBoard.getValue(coordPlayer.myGetXX(), coordPlayer.myGetYY()-2) == 4)){
 					setCaisse(0, -1, 0, -2);
 					setMario(0, -1);
 				}
 				setMarioPicture("mariodos.gif");
 				break;
 			case KeyEvent.VK_DOWN:
-				if(verifyOutBoard(0, 1, player) && (gameBoard.getValue(player.myGetXX(), player.myGetYY()+1) == 0
-						|| gameBoard.getValue(player.myGetXX(), player.myGetYY()+1) == 4))
+				if(verifyOutBoard(0, 1) && (gameBoard.getValue(coordPlayer.myGetXX(), coordPlayer.myGetYY()+1) == 0
+						|| gameBoard.getValue(coordPlayer.myGetXX(), coordPlayer.myGetYY()+1) == 4))
 					setMario(0, 1);
-				else if(verifyOutBoard(0, 1, player) && (gameBoard.getValue(player.myGetXX(), player.myGetYY()+1) == 2
-						|| gameBoard.getValue(player.myGetXX(), player.myGetYY()+1) == 3)
-						&& (gameBoard.getValue(player.myGetXX(), player.myGetYY()+2) == 0
-						|| gameBoard.getValue(player.myGetXX(), player.myGetYY()+2) == 4)){
+				else if(verifyOutBoard(0, 1) && (gameBoard.getValue(coordPlayer.myGetXX(), coordPlayer.myGetYY()+1) == 2
+						|| gameBoard.getValue(coordPlayer.myGetXX(), coordPlayer.myGetYY()+1) == 3)
+						&& (gameBoard.getValue(coordPlayer.myGetXX(), coordPlayer.myGetYY()+2) == 0
+						|| gameBoard.getValue(coordPlayer.myGetXX(), coordPlayer.myGetYY()+2) == 4)){
 					setCaisse(0, 1, 0, 2);
 					setMario(0, 1);
 				}
@@ -155,13 +151,13 @@ public class GamePanel extends JPanel implements KeyListener {
 						
 						break;
 			case KeyEvent.VK_LEFT:
-				if(verifyOutBoard(-1, 0, player) && (gameBoard.getValue(player.myGetXX()-1, player.myGetYY()) == 0
-						|| gameBoard.getValue(player.myGetXX()-1, player.myGetYY()) == 4)){
+				if(verifyOutBoard(-1, 0) && (gameBoard.getValue(coordPlayer.myGetXX()-1, coordPlayer.myGetYY()) == 0
+						|| gameBoard.getValue(coordPlayer.myGetXX()-1, coordPlayer.myGetYY()) == 4)){
 					setMario(-1, 0);
-				}else if(verifyOutBoard(-1, 0, player) && (gameBoard.getValue(player.myGetXX()-1, player.myGetYY()) == 2
-						|| gameBoard.getValue(player.myGetXX()-1, player.myGetYY()) == 3)
-						&& (gameBoard.getValue(player.myGetXX()-2, player.myGetYY()) == 0
-						|| gameBoard.getValue(player.myGetXX()-2, player.myGetYY()) == 4)){
+				}else if(verifyOutBoard(-1, 0) && (gameBoard.getValue(coordPlayer.myGetXX()-1, coordPlayer.myGetYY()) == 2
+						|| gameBoard.getValue(coordPlayer.myGetXX()-1, coordPlayer.myGetYY()) == 3)
+						&& (gameBoard.getValue(coordPlayer.myGetXX()-2, coordPlayer.myGetYY()) == 0
+						|| gameBoard.getValue(coordPlayer.myGetXX()-2, coordPlayer.myGetYY()) == 4)){
 					setCaisse(-1, 0, -2, 0);
 					setMario(-1, 0);
 				}
@@ -169,13 +165,13 @@ public class GamePanel extends JPanel implements KeyListener {
 				
 				break;
 			case KeyEvent.VK_RIGHT:
-				if(verifyOutBoard(1, 0, player) && (gameBoard.getValue(player.myGetXX()+1, player.myGetYY()) == 0 
-						|| gameBoard.getValue(player.myGetXX()+1, player.myGetYY()) == 4)){
+				if(verifyOutBoard(1, 0) && (gameBoard.getValue(coordPlayer.myGetXX()+1, coordPlayer.myGetYY()) == 0 
+						|| gameBoard.getValue(coordPlayer.myGetXX()+1, coordPlayer.myGetYY()) == 4)){
 					setMario(1, 0);
-				}else if(verifyOutBoard(1, 0, player) && (gameBoard.getValue(player.myGetXX()+1, player.myGetYY()) == 2
-						|| gameBoard.getValue(player.myGetXX()+1, player.myGetYY()) == 3)
-						&& (gameBoard.getValue(player.myGetXX()+2, player.myGetYY()) == 0
-						|| gameBoard.getValue(player.myGetXX()+2, player.myGetYY()) == 4)){
+				}else if(verifyOutBoard(1, 0) && (gameBoard.getValue(coordPlayer.myGetXX()+1, coordPlayer.myGetYY()) == 2
+						|| gameBoard.getValue(coordPlayer.myGetXX()+1, coordPlayer.myGetYY()) == 3)
+						&& (gameBoard.getValue(coordPlayer.myGetXX()+2, coordPlayer.myGetYY()) == 0
+						|| gameBoard.getValue(coordPlayer.myGetXX()+2, coordPlayer.myGetYY()) == 4)){
 					setCaisse(1, 0, 2, 0);
 					setMario(1, 0);
 				}			
