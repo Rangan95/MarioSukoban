@@ -3,9 +3,18 @@ package graphics;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * Représente la fenêtre de jeu.
+ * @author remy
+ *
+ */
+
 public class Fenetre extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private Menu menu;
+	/**
+	 * L'attribut currentPanel contient le panel actuellement
+	 * afficher dans la fenêtre.
+	 */
 	private JPanel currentPanel;
 	
 	public Fenetre(){
@@ -13,8 +22,7 @@ public class Fenetre extends JFrame {
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		menu = new Menu(this);
-		this.currentPanel = menu;
+		this.currentPanel = new Menu(this);
 		this.setContentPane(currentPanel);
 		this.setVisible(true);
 		this.pack();
@@ -24,6 +32,11 @@ public class Fenetre extends JFrame {
 		return this.currentPanel;
 	}
 	
+	/**
+	 * Méthode permettant de changer le panel
+	 * actuellement affiché.
+	 * @param pan
+	 */
 	public void setCurrentPanel(JPanel pan){
 		this.currentPanel = pan;
 		this.setContentPane(currentPanel);

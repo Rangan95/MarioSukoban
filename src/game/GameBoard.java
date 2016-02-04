@@ -8,7 +8,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
- * La valeur à x et y du plateau est égale à :
+ * Permet de charger la carte de jeu.
+ * 
+ * Les valeurs dans le tableau de jeu peuvent être :
  * 			- 0 : rien
  * 			- 1 : mur
  * 			- 2 : caisse
@@ -36,8 +38,7 @@ public class GameBoard {
 	public void loadBoard(String lvl){
 		try {
 			InputStream ips = new FileInputStream(lvl);
-			InputStreamReader ipsr = new InputStreamReader(ips);
-			
+			InputStreamReader ipsr = new InputStreamReader(ips);			
 			BufferedReader br = new BufferedReader(ipsr);
 			String ligne;
 			String[] tab;
@@ -63,6 +64,9 @@ public class GameBoard {
 		
 	}
 	
+	/**
+	 * Permet d'afficher dans la console le plateau de jeu.
+	 */
 	public void printBoard(){
 		for(int y = 0; y < sizeOfY; y++){
 			for(int x = 0; x < sizeOfX; x++){

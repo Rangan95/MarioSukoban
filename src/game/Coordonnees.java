@@ -1,5 +1,12 @@
 package game;
 
+/**
+ * Permet  de représenter et de garder en mémoire le
+ * placement de mario sur la carte.
+ * @author remy
+ *
+ */
+
 public class Coordonnees {
 	int x;
 	int y;
