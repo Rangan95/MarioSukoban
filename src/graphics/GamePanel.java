@@ -24,8 +24,6 @@ public class GamePanel extends JPanel implements KeyListener {
 	public GamePanel(Game game, int sizeOfX, int sizeOfY){
 		this.setPreferredSize(new Dimension(sizeOfX, sizeOfY));
 		this.addKeyListener(this);
-		this.setFocusable(true);
-		this.requestFocus();
 		this.gameBoard = game.getGameBoard();
 		this.game = game;
 		this.label = new JLabel[gameBoard.getSizeOfX()][gameBoard.getSizeOfY()];
@@ -128,7 +126,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_UP:
 				if(verifyOutBoard(0, -1) && gameBoard.getValue(coordPlayer.myGetXX(), coordPlayer.myGetYY()-1) == 0
@@ -189,7 +186,11 @@ public class GamePanel extends JPanel implements KeyListener {
 			case KeyEvent.VK_ALT:
 				game.reload();
 				
-	
+				break;
+			case KeyEvent.VK_ENTER:
+				game.getFenetre().setCurrentPanel(new SelectLvl(game.getFenetre()));
+				
+				break;
 			default:
 				break;
 		}

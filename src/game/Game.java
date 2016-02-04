@@ -1,16 +1,18 @@
 package game;
 
 import graphics.Fenetre;
+import graphics.GamePanel;
 
 public class Game {
 	private Fenetre fenetre;
 	private GameBoard gameBoard;
 	private String lvl;
 	
-	public Game(String lvl){
+	public Game(Fenetre fen, String lvl){
 		this.lvl = lvl;
+		this.fenetre = fen;
 		gameBoard = new GameBoard(lvl);
-		setFenetre(new Fenetre(this, gameBoard.getSizeOfX()*34, gameBoard.getSizeOfY()*34));
+		fen.setCurrentPanel(new GamePanel(this, gameBoard.getSizeOfX()*34, gameBoard.getSizeOfY()*34));
 	}
 
 	public GameBoard getGameBoard() {
@@ -19,7 +21,7 @@ public class Game {
 	
 	public void reload(){
 		gameBoard.loadBoard(lvl);
-		fenetre.getPanelOfGame().loadPicture();
+		((GamePanel)fenetre.getCurrentPanel()).loadPicture();
 	}
 
 	public Fenetre getFenetre() {
