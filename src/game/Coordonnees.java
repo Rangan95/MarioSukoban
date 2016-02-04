@@ -4,10 +4,6 @@ public class Coordonnees {
 	int x;
 	int y;
 	
-	public Coordonnees(){
-		
-	}
-	
 	public void setCoordonnees(int x, int y){
 		this.x = x;
 		this.y = y;

@@ -23,11 +23,13 @@ public class GameBoard {
 	private int[][] board;
 	private int sizeOfX;
 	private int sizeOfY;
+	private int nbObjectif;
 	
-	public GameBoard(String lvl, int sizeOfX, int sizeOfY){
-		this.sizeOfX = sizeOfX;
-		this.sizeOfY = sizeOfY;
-		board = new int[sizeOfX][sizeOfY];
+	public int getNbObjectif() {
+		return nbObjectif;
+	}
+
+	public GameBoard(String lvl){
 		this.loadBoard(lvl);
 	}
 	
@@ -38,9 +40,17 @@ public class GameBoard {
 			
 			BufferedReader br = new BufferedReader(ipsr);
 			String ligne;
+			String[] tab;
+			
+			ligne = br.readLine();
+			tab = ligne.split(" ");
+			sizeOfX = Integer.parseInt(tab[0]);
+			sizeOfY = Integer.parseInt(tab[0]);
+			board = new int[sizeOfX][sizeOfY];
+			nbObjectif = Integer.parseInt(tab[1]);
 			
 			while((ligne=br.readLine()) != null){
-				String[] tab = ligne.split(" ");
+				tab = ligne.split(" ");
 				board[Integer.parseInt(tab[1])][Integer.parseInt(tab[0])] = Integer.parseInt(tab[2]);
 			}
 				

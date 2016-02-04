@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import game.Game;
 import game.GameBoard;
 import game.Coordonnees;
 
@@ -17,20 +18,26 @@ public class GamePanel extends JPanel implements KeyListener {
 	private static final long serialVersionUID = 1L;
 	private JLabel[][] label;
 	private GameBoard gameBoard;
+	private Game game;
 	private Coordonnees coordPlayer;
 
-	public GamePanel(GameBoard gameBoard, int sizeOfX, int sizeOfY){
+	public GamePanel(Game game, int sizeOfX, int sizeOfY){
 		this.setPreferredSize(new Dimension(sizeOfX, sizeOfY));
 		this.addKeyListener(this);
 		this.setFocusable(true);
 		this.requestFocus();
-		this.gameBoard = gameBoard;
+		this.gameBoard = game.getGameBoard();
+		this.game = game;
 		this.label = new JLabel[gameBoard.getSizeOfX()][gameBoard.getSizeOfY()];
 		this.coordPlayer = new Coordonnees();
-		this.loadPicture();
 		this.initLayout();
+		this.loadPicture();
 	}
 	
+	public void setGameBoard(GameBoard gameBoard) {
+		this.gameBoard = gameBoard;
+	}
+
 	public void initLayout(){
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridwidth = 1;
@@ -38,6 +45,7 @@ public class GamePanel extends JPanel implements KeyListener {
 		this.setLayout(new GridBagLayout());
 		for(int x = 0; x < gameBoard.getSizeOfX(); x++){
 			for(int y = 0; y < gameBoard.getSizeOfY(); y++){
+				label[x][y] = new JLabel();
 				gbc.gridx = x;
 				gbc.gridy = y;
 				this.add(label[x][y], gbc);
@@ -48,7 +56,6 @@ public class GamePanel extends JPanel implements KeyListener {
 	public void loadPicture(){
 		for(int x = 0; x < gameBoard.getSizeOfX(); x++){
 			for(int y = 0; y < gameBoard.getSizeOfY(); y++){
-				label[x][y] = new JLabel();
 				if(gameBoard.getValue(x, y) == 1)
 					label[x][y].setIcon(new ImageIcon("mur.jpg"));
 				else if(gameBoard.getValue(x, y) == 2){
@@ -178,6 +185,10 @@ public class GamePanel extends JPanel implements KeyListener {
 				setMarioPicture("mariodroite.gif");
 				
 				break;
+				
+			case KeyEvent.VK_ALT:
+				game.reload();
+				
 	
 			default:
 				break;
