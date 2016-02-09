@@ -141,7 +141,6 @@ public class GamePanel extends JPanel implements KeyListener {
 		}
 		
 		if(nbObjectifPlace == gameBoard.getNbObjectif()){
-			//game.getFenetre().setCurrentPanel(new SelectLvl(game.getFenetre()));
 			game.getFenetre().setCurrentPanel(new FinishPanel(game.getFenetre()));
 		}
 	}

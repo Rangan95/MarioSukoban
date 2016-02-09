@@ -20,6 +20,7 @@ public class FinishPanel extends JPanel implements ActionListener {
 	
 	private JButton menu;
 	private JButton niveauSuivant;
+	private JButton enregistrement;
 
 	public FinishPanel(Fenetre fen){
 		this.setPreferredSize(new Dimension(600, 150));
@@ -30,6 +31,7 @@ public class FinishPanel extends JPanel implements ActionListener {
 		this.menu = new JButton("Retour au menu");
 		this.menu.addActionListener(this);
 		this.niveauSuivant = new JButton("Niveau suivant");
+		this.enregistrement = new JButton("Enregistre ton score");
 		this.bravo_sentence = new JLabel("Bravo, tu as reussi ce niveau !");
 		this.init_graphics();
 	}
@@ -39,6 +41,8 @@ public class FinishPanel extends JPanel implements ActionListener {
 		horizontalBox2.add(menu);
 		horizontalBox2.add(Box.createRigidArea(new Dimension(100, 0)));
 		horizontalBox2.add(niveauSuivant);
+		horizontalBox2.add(Box.createRigidArea(new Dimension(100, 0)));
+		horizontalBox2.add(enregistrement);
 		verticalBox.add(horizontalBox1);
 		verticalBox.add(Box.createRigidArea(new Dimension(0, 75)));
 		verticalBox.add(horizontalBox2);
