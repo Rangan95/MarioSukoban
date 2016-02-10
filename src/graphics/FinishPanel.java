@@ -1,5 +1,7 @@
 package graphics;
 
+import game.Game;
+
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +13,7 @@ import javax.swing.JPanel;
 
 public class FinishPanel extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
-	private Fenetre fen;
+	private Game game;
 	private JLabel bravo_sentence;
 	
 	private Box verticalBox;
@@ -22,15 +24,16 @@ public class FinishPanel extends JPanel implements ActionListener {
 	private JButton niveauSuivant;
 	private JButton enregistrement;
 
-	public FinishPanel(Fenetre fen){
+	public FinishPanel(Game game){
 		this.setPreferredSize(new Dimension(600, 150));
-		this.fen = fen;
+		this.game = game;
 		this.verticalBox = Box.createVerticalBox();
 		this.horizontalBox1 = Box.createHorizontalBox();
 		this.horizontalBox2 = Box.createHorizontalBox();
 		this.menu = new JButton("Retour au menu");
 		this.menu.addActionListener(this);
 		this.niveauSuivant = new JButton("Niveau suivant");
+		this.niveauSuivant.addActionListener(this);
 		this.enregistrement = new JButton("Enregistre ton score");
 		this.bravo_sentence = new JLabel("Bravo, tu as reussi ce niveau !");
 		this.init_graphics();
@@ -39,9 +42,9 @@ public class FinishPanel extends JPanel implements ActionListener {
 	public void init_graphics(){
 		horizontalBox1.add(bravo_sentence);
 		horizontalBox2.add(menu);
-		horizontalBox2.add(Box.createRigidArea(new Dimension(100, 0)));
+		horizontalBox2.add(Box.createRigidArea(new Dimension(50, 0)));
 		horizontalBox2.add(niveauSuivant);
-		horizontalBox2.add(Box.createRigidArea(new Dimension(100, 0)));
+		horizontalBox2.add(Box.createRigidArea(new Dimension(50, 0)));
 		horizontalBox2.add(enregistrement);
 		verticalBox.add(horizontalBox1);
 		verticalBox.add(Box.createRigidArea(new Dimension(0, 75)));
@@ -52,9 +55,9 @@ public class FinishPanel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(menu)){
-			this.fen.setCurrentPanel(new Menu(this.fen));
+			this.game.getFenetre().setCurrentPanel(new Menu(this.game.getFenetre()));
 		} else if(e.getSource().equals(niveauSuivant)){
-			// A compléter
+			this.game.getFenetre().loadGame(new Game(game.getFenetre(), "niveau" + (game.getNbOfLvl()+1) + ".txt"));
 		}
 		
 	}

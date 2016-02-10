@@ -1,5 +1,7 @@
 package graphics;
 
+import game.Game;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -45,5 +47,12 @@ public class Fenetre extends JFrame {
 		this.pack();
 		this.repaint();
 		this.revalidate();
+	}
+	
+	public void loadGame(Game game){
+		if(game.getGameBoard().loadBoard(game.getLvl()))
+			this.setCurrentPanel(new GamePanel(game, game.getGameBoard().getSizeOfX()*34, game.getGameBoard().getSizeOfY()*34));
+		else
+			this.setCurrentPanel(new Menu(this));
 	}
 }

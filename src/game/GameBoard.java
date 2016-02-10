@@ -30,12 +30,8 @@ public class GameBoard {
 	public int getNbObjectif() {
 		return nbObjectif;
 	}
-
-	public GameBoard(String lvl){
-		this.loadBoard(lvl);
-	}
 	
-	public void loadBoard(String lvl){
+	public boolean loadBoard(String lvl){
 		try {
 			InputStream ips = new FileInputStream(lvl);
 			InputStreamReader ipsr = new InputStreamReader(ips);			
@@ -55,13 +51,14 @@ public class GameBoard {
 				board[Integer.parseInt(tab[1])][Integer.parseInt(tab[0])] = Integer.parseInt(tab[2]);
 			}
 				
-			br.close();
+			br.close();			
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			return false;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
+		return true;
 	}
 	
 	/**

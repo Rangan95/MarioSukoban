@@ -55,13 +55,13 @@ public class SelectLvl extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(lvl1))
-			new Game(fen, "niveau1.txt");
+			fen.loadGame(new Game(fen, "niveau1.txt"));
 		
 		else if(e.getSource().equals(lvl2))
-			new Game(fen, "niveau2.txt");
+			fen.loadGame(new Game(fen, "niveau2.txt"));
 		
 		else if(e.getSource().equals(lvl3))
-			new Game(fen, "niveau3.txt");
+			fen.loadGame(new Game(fen, "niveau3.txt"));
 		
 	}
 

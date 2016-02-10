@@ -13,13 +13,16 @@ public class Game {
 	private Fenetre fen;
 	private GameBoard gameBoard;
 	private String lvl;
+	private int nbOfLvl;
 	
+
 	public Game(Fenetre fen, String lvl){
 		this.lvl = lvl;
+		this.nbOfLvl = Integer.parseInt(lvl.substring(6, 7));
 		this.fen = fen;
-		this.gameBoard = new GameBoard(lvl);
-		this.fen.setCurrentPanel(new GamePanel(this, gameBoard.getSizeOfX()*34, gameBoard.getSizeOfY()*34));
+		this.gameBoard = new GameBoard();
 	}
+
 
 	public GameBoard getGameBoard() {
 		return gameBoard;
@@ -39,5 +42,13 @@ public class Game {
 
 	public void setFenetre(Fenetre fenetre) {
 		this.fen = fenetre;
-	}	
+	}
+	
+	public int getNbOfLvl() {
+		return nbOfLvl;
+	}
+	
+	public String getLvl() {
+		return lvl;
+	}
 }
