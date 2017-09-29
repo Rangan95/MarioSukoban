@@ -1,0 +1,4 @@
+language: java
+
+script:
+	javac /src/load/Loader.java
