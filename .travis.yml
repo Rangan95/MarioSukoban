@@ -1,4 +1,9 @@
 language: java
 
+matrix:
+  include:
+    - java: "6.0"
+    - java: "7.0"
+
 script:
   - javac src/game/*.java src/graphics/*.java src/load/*.java
